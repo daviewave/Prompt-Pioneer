@@ -17,7 +17,7 @@ import { set } from 'mongoose';
 
 type Props = {};
 
-type Provider = any;
+// type Provider = any;
 
 const Nav = (props: Props) => {
   const { data: session } = useSession();
@@ -54,7 +54,7 @@ const Nav = (props: Props) => {
         {session?.user ? (
           <div className="flex gap-3 md:gap-5">
             <Link href="/create-prompt" className="black_btn">
-              Create Post
+              Create Prompt
             </Link>
 
             <button
