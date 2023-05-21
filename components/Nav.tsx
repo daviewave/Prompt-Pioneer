@@ -20,20 +20,16 @@ type Props = {};
 type Provider = any;
 
 const Nav = (props: Props) => {
-  const isUserLoggedIn = true;
+  const { data: session } = useSession();
 
   // const [providers, setProviders] = useState<null>(null);
-  const [providers, setProviders] = useState<Provider | null>(null);
+  const [providers, setProviders] = useState<any>(null);
   const [toggleDropdown, setToggleDropdown] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchProviders = async () => {
-      const response: Record<
-        LiteralUnion<BuiltInProviderType, string>,
-        ClientSafeProvider
-      > | null = await getProviders();
-      console.log('type of response: ', typeof response);
-      console.log('response: ', response);
+      const response = await getProviders();
+      console.log('response', response);
       setProviders(response);
     };
     fetchProviders();
@@ -55,7 +51,7 @@ const Nav = (props: Props) => {
 
       {/* Desktop Navigation */}
       <div className="sm:flex hidden">
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className="flex gap-3 md:gap-5">
             <Link href="/create-prompt" className="black_btn">
               Create Post
@@ -98,7 +94,7 @@ const Nav = (props: Props) => {
 
       {/* Mobile Navigation */}
       <div className="sm:hidden flex relative">
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className="flex">
             <Image
               src="/assets/images/logo.svg"
