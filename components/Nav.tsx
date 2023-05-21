@@ -67,7 +67,7 @@ const Nav = (props: Props) => {
 
             <Link href="/profile" className="flex gap-2 flex-center">
               <Image
-                src="/assets/images/logo.svg"
+                src={session?.user?.image || ''}
                 alt="Profile Icon"
                 height={40}
                 width={40}
@@ -97,7 +97,7 @@ const Nav = (props: Props) => {
         {session?.user ? (
           <div className="flex">
             <Image
-              src="/assets/images/logo.svg"
+              src={session?.user?.image || ''}
               alt="Profile Icon"
               height={40}
               width={40}
