@@ -2,6 +2,9 @@ import { FC, ReactNode } from 'react';
 
 import '@styles/globals.css';
 
+import Nav from '@components/Nav';
+import Provider from '@components/Provider';
+
 interface Metadata {
   title: string;
   description: string;
@@ -26,7 +29,10 @@ const RootLayout: FC<Props> = ({ children }) => {
           <div className="gradient" />
         </div>
 
-        <main className="app">{children}</main>
+        <main className="app">
+          <Nav />
+          {children}
+        </main>
       </body>
     </html>
   );
