@@ -24,15 +24,18 @@ const RootLayout: FC<Props> = ({ children }) => {
   return (
     <html lang="en">
       <body>
-        {/* Putting a self closing div tag within another div that has the css for the main component the layout  */}
-        <div className="main">
-          <div className="gradient" />
-        </div>
+        {/* not quite sure what 'session' is supposed to be as it is not discussed in the course */}
+        <Provider session={undefined}>
+          {/* Putting a self closing div tag within another div that has the css for the main component the layout  */}
+          <div className="main">
+            <div className="gradient" />
+          </div>
 
-        <main className="app">
-          <Nav />
-          {children}
-        </main>
+          <main className="app">
+            <Nav />
+            {children}
+          </main>
+        </Provider>
       </body>
     </html>
   );
