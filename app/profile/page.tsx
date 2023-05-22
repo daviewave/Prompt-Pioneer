@@ -65,7 +65,7 @@ const ProfilePage: FC<ProfilePageProps> = () => {
 
   return (
     <Profile
-      name={searchParams.get('name') || session?.user?.id}
+      name={searchParams.get('name') || session?.user?.name}
       desc={profilePageDescription}
       data={posts}
       handleEdit={handleEdit}
