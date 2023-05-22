@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 
+import CopyToClipboard from './CopyToClipboard';
+
 type PromptCardProps = {
   post: any;
   handleTagClick: (tag: string) => void;
@@ -60,16 +62,7 @@ const PromptCard: FC<PromptCardProps> = ({
         </div>
 
         <div className="copy_btn" onClick={handleCopy}>
-          <Image
-            src={
-              copied === post.prompt
-                ? '/assets/icons/tick.svg'
-                : '/assets/icons/copy.svg'
-            }
-            alt="copy_icon"
-            width={12}
-            height={12}
-          />
+          <CopyToClipboard text={post.prompt} />
         </div>
       </div>
 
@@ -82,15 +75,15 @@ const PromptCard: FC<PromptCardProps> = ({
       </p>
 
       {session?.user?.id === post.creator._id && pathname === '/profile' && (
-        <div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">
+        <div className="mt-5 flex-center gap-4 border-t border-gray-100">
           <p
-            className="font-inter text-sm green_gradient cursor-pointer"
+            className="font-inter text-sm px-4 py-2 w-20 text-center rounded-full border-2 border-green-500 text-green-500 hover:bg-green-500 hover:text-white cursor-pointer"
             onClick={handleEdit}
           >
             Edit
           </p>
           <p
-            className="font-inter text-sm orange_gradient cursor-pointer"
+            className="font-inter text-sm px-4 py-2 w-20 text-center rounded-full border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white cursor-pointer"
             onClick={handleDelete}
           >
             Delete
