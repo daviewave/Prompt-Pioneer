@@ -38,11 +38,15 @@ const PromptCard: FC<PromptCardProps> = ({
       console.error('Failed to copy text: ', error);
     }
   };
+  console.log('post: ', post);
 
   return (
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">
-        <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
+        <div 
+          className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
+          onClick={() => router.push(`/profile/?id=${post.creator._id}&name=${post.creator.username}`)}
+        >
           <Image
             src={post?.creator?.image}
             alt="user_image"
