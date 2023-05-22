@@ -11,7 +11,7 @@ const Home: FC<Props> = () => {
         <div>Discover & Share</div>
         <div>
           <span className="orange_gradient text-center">
-            AI-Powered Prompts
+            ChatGPT Prompts
           </span>
         </div>
       </h1>
