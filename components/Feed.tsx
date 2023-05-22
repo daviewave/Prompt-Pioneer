@@ -28,10 +28,40 @@ const PromptCardList: FC<PromptCardListProps> = ({ data, handleTagClick }) => {
 type FeedProps = {};
 
 const Feed: FC<FeedProps> = (props: FeedProps) => {
-  const [searchText, setSearchText] = useState('');
   const [posts, setPosts] = useState([]);
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
+  const [searchText, setSearchText] = useState('');
+  const [searchTimeout, setSearchTimeout] = useState<any>(null);
+  const [searchResults, setSearchResults] = useState([]);
+
+  const getFilteredPosts = (searchText) => {
+    const regex = new RegExp(searchText, 'i');
+    return posts.filter(
+      (post: any) =>
+        regex.test(post.creator.username) ||
+        regex.test(post.prompt) ||
+        regex.test(post.tag)
+    );
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    clearTimeout(searchTimeout);
+    setSearchText(e.target.value);
+
+    setSearchTimeout(
+      setTimeout(() => {
+        const searchResult = getFilteredPosts(e.target.value);
+        setSearchResults(searchResult);
+      }, 500)
+    );
+  };
+
+  const handleTagClick = (tag: string) => {
+    setSearchText(tag);
+
+    const searchResult = getFilteredPosts(tag);
+    setSearchResults(getFilteredPosts(searchResult));
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -59,7 +89,20 @@ const Feed: FC<FeedProps> = (props: FeedProps) => {
         />
       </form>
 
-      <PromptCardList data={posts} handleTagClick={() => {}} />
+      {searchText.length > 0 ? (
+        searchResults.length > 0 ? (
+          <PromptCardList
+            data={searchResults}
+            handleTagClick={handleTagClick}
+          />
+        ) : (
+          <p>No search results found for "{searchText}"</p>
+        )
+      ) : posts.length > 0 ? (
+        <PromptCardList data={posts} handleTagClick={handleTagClick} />
+      ) : (
+        <p>No prompts found. Please check back later!</p>
+      )}
     </section>
   );
 };
