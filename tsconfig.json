@@ -15,6 +15,7 @@
     "jsx": "preserve",
     "incremental": true,
     "noImplicitAny": false,
+    "noImplicitReturns": false,
     "plugins": [
       {
         "name": "next"
