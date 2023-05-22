@@ -63,6 +63,8 @@ const ProfilePage: FC<ProfilePageProps> = () => {
     }
   }, [searchParams.get('id'), session?.user?.id]);
 
+  if(!searchParams.get('id') && !session?.user?.id) router.push('/');
+
   return (
     <Profile
       name={searchParams.get('name') || session?.user?.name}
