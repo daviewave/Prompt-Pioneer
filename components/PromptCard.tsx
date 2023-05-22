@@ -19,6 +19,10 @@ const PromptCard: FC<PromptCardProps> = ({
   handleEdit,
   handleDelete,
 }) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const { data: session } = useSession();
+
   const [copied, setCopied] = useState('');
 
   const handleCopy = async () => {
@@ -34,7 +38,7 @@ const PromptCard: FC<PromptCardProps> = ({
   };
 
   return (
-    <div className="prompt_card">
+    <div className="prompt_card" style={{ minWidth: '480px' }}>
       <div className="flex justify-between items-start gap-5">
         <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
           <Image
@@ -74,8 +78,25 @@ const PromptCard: FC<PromptCardProps> = ({
         className="font-inter text-sm blue_gradient cursor-pointer"
         onClick={() => handleTagClick && handleTagClick(post.tag)}
       >
-        {post.tag}
+        #{post.tag}
       </p>
+
+      {session?.user?.id === post.creator._id && pathname === '/profile' && (
+        <div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">
+          <p
+            className="font-inter text-sm green_gradient cursor-pointer"
+            onClick={handleEdit}
+          >
+            Edit
+          </p>
+          <p
+            className="font-inter text-sm orange_gradient cursor-pointer"
+            onClick={handleDelete}
+          >
+            Delete
+          </p>
+        </div>
+      )}
     </div>
   );
 };
