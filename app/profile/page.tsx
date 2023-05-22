@@ -57,7 +57,7 @@ const ProfilePage: FC<ProfilePageProps> = ({}) => {
 
   return (
     <Profile
-      name="Big D"
+      name={session?.user?.name}
       desc={profilePageDescription}
       data={posts}
       handleEdit={handleEdit}
