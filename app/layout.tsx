@@ -13,7 +13,7 @@ interface Metadata {
 export const metadata: Metadata = {
   title: 'Prompt Pioneer',
   description:
-    'Discpver & share AI-generated prompts for your next creative project.',
+    'Discover & share AI-generated prompts for your next creative project.',
 };
 
 type Props = {
