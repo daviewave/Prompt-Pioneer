@@ -9,7 +9,7 @@ import Form from '@components/Form';
 type Props = {};
 
 const CreatePrompt = (props: Props) => {
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
   const router = useRouter();
 
   const [submitting, setSubmitting] = useState<boolean>(false);

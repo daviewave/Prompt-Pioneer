@@ -13,7 +13,7 @@ const profilePageDescription = `Welcome to your personal haven on Prompt Pioneer
 
 const ProfilePage: FC<ProfilePageProps> = ({}) => {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
 
   const [posts, setPosts] = useState([]);
 

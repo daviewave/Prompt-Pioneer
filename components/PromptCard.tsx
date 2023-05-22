@@ -21,7 +21,7 @@ const PromptCard: FC<PromptCardProps> = ({
 }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
 
   const [copied, setCopied] = useState('');
 

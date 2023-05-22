@@ -20,7 +20,7 @@ type Props = {};
 // type Provider = any;
 
 const Nav = (props: Props) => {
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
 
   // const [providers, setProviders] = useState<null>(null);
   const [providers, setProviders] = useState<any>(null);
