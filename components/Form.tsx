@@ -20,10 +20,7 @@ const Form: FC<FormProps> = (props: FormProps) => {
   return (
     <section className="w-full max-w-full flex-start flex-col">
       <h1 className="head_text text-left">
-        <span className="blue_gradient">
-          {type}
-          Prompt
-        </span>
+        <span className="blue_gradient">{type} Prompt</span>
       </h1>
       <p className="desc text-left max-w-md">
         Contribute to the Prompt Pioneer community with prompts that enhance
