@@ -11,7 +11,7 @@ type PromptCardListProps = {
 
 const PromptCardList: FC<PromptCardListProps> = ({ data, handleTagClick }) => {
   return (
-    <div className="mt-16 prompt_layout">
+    <div className="mt-4 prompt_layout">
       {data.map((post) => (
         <PromptCard
           key={post._id}
@@ -86,7 +86,7 @@ const Feed: FC<FeedProps> = (props: FeedProps) => {
       <form className="relative w-full flex-center">
         <input
           type="text"
-          placeholder="Search Prompts by Tag or Username"
+          placeholder="Search Prompts by Keyword, Tag, or Username"
           value={searchText}
           onChange={handleSearchChange}
           required
