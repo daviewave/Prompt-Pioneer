@@ -52,15 +52,20 @@ const Feed: FC<FeedProps> = (props: FeedProps) => {
       setTimeout(() => {
         const searchResult = getFilteredPosts(e.target.value);
         setSearchResults(searchResult);
-      }, 500)
+      }, 300)
     );
   };
 
   const handleTagClick = (tag: string) => {
+    clearTimeout(searchTimeout);
     setSearchText(tag);
 
-    const searchResult = getFilteredPosts(tag);
-    setSearchResults(getFilteredPosts(searchResult));
+    setSearchTimeout(
+      setTimeout(() => {
+        const searchResult = getFilteredPosts(tag);
+        setSearchResults(searchResult);
+      }, 100)
+    );
   };
 
   useEffect(() => {
