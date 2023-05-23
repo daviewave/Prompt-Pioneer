@@ -7,10 +7,6 @@ import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import CopyToClipboard from './CopyToClipboard';
-import path from 'path';
-
-const feedCardStyle = 'prompt_card max-w-xl cursor-pointer';
-const detailsCardStyle = 'prompt_card max-w-xl mt-10 cursor-pointer';
 
 type PromptCardProps = {
   post: any;
@@ -44,9 +40,8 @@ const PromptCard: FC<PromptCardProps> = ({
   };
 
   return (
-    // <div className="prompt_card">
     <div
-      className={pathname === '/' ? feedCardStyle : detailsCardStyle}
+      className="prompt_card max-w-xl cursor-pointer"
       onClick={() => router.push(`/prompt-details/?id=${post._id}`)}
     >
       <div className="flex justify-between items-start gap-5">
