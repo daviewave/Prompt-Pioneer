@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import CopyToClipboard from './CopyToClipboard';
+import path from 'path';
 
 const feedCardStyle = 'prompt_card max-w-xl';
 const detailsCardStyle = 'prompt_card max-w-xl mt-10';
@@ -43,11 +44,8 @@ const PromptCard: FC<PromptCardProps> = ({
   };
 
   return (
-    <div
-      className={`${
-        pathname === '/' ? feedCardStyle : detailsCardStyle
-      } lg:block hidden`}
-    >
+    // <div className="prompt_card">
+    <div className={pathname === '/' ? feedCardStyle : detailsCardStyle}>
       <div className="flex justify-between items-start gap-5">
         <div
           className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
