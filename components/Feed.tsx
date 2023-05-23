@@ -36,6 +36,8 @@ const Feed: FC<FeedProps> = (props: FeedProps) => {
   const [searchTimeout, setSearchTimeout] = useState<any>(null);
   const [searchResults, setSearchResults] = useState([]);
 
+  const [loading, setLoading] = useState(false);
+
   const getFilteredPosts = (searchText) => {
     const regex = new RegExp(searchText, 'i');
     return posts.filter(
@@ -72,12 +74,15 @@ const Feed: FC<FeedProps> = (props: FeedProps) => {
 
   useEffect(() => {
     const fetchPosts = async () => {
+      setLoading(true);
       try {
         const response = await fetch('/api/prompt');
         const data = await response.json();
         setPosts(data);
       } catch (error) {
         console.log('error: ', error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchPosts();
@@ -96,6 +101,25 @@ const Feed: FC<FeedProps> = (props: FeedProps) => {
         />
       </form>
 
+      {loading ? (
+        <div className="mt-5">
+          <Spinner message="Loading feed..." />
+        </div>
+      ) : searchText.length > 0 ? (
+        searchResults.length > 0 ? (
+          <PromptCardList
+            data={searchResults}
+            handleTagClick={handleTagClick}
+          />
+        ) : (
+          <p>No search results found for "{searchText}"</p>
+        )
+      ) : (
+        posts.length > 0 && (
+          <PromptCardList data={posts} handleTagClick={handleTagClick} />
+        )
+      )}
+
       {searchText.length > 0 ? (
         searchResults.length > 0 ? (
           <PromptCardList
@@ -105,12 +129,10 @@ const Feed: FC<FeedProps> = (props: FeedProps) => {
         ) : (
           <p>No search results found for "{searchText}"</p>
         )
-      ) : posts.length > 0 ? (
-        <PromptCardList data={posts} handleTagClick={handleTagClick} />
       ) : (
-        <div className="mt-5">
-          <Spinner message="Loading feed..." />
-        </div>
+        posts.length > 0 && (
+          <PromptCardList data={posts} handleTagClick={handleTagClick} />
+        )
       )}
     </section>
   );
