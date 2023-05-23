@@ -4,6 +4,8 @@ import { FC, useState, useEffect } from 'react';
 
 import PromptCard from './PromptCard';
 
+import Spinner from '@components/Spinner';
+
 type PromptCardListProps = {
   data: any[];
   handleTagClick: (tag: string) => void;
@@ -106,7 +108,9 @@ const Feed: FC<FeedProps> = (props: FeedProps) => {
       ) : posts.length > 0 ? (
         <PromptCardList data={posts} handleTagClick={handleTagClick} />
       ) : (
-        <p>No prompts found. Please check back later!</p>
+        <div className="mt-5">
+          <Spinner message="Loading feed..." />
+        </div>
       )}
     </section>
   );
