@@ -15,6 +15,7 @@
     "autoprefixer": "10.4.14",
     "bcrypt": "^5.1.0",
     "clipboard-copy": "^4.0.1",
+    "langchain": "^0.0.78",
     "mongodb": "^5.5.0",
     "mongoose": "^7.2.0",
     "next": "13.4.2",
@@ -24,7 +25,9 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
+    "react-loader-spinner": "^5.3.4",
     "react-tooltip": "^5.13.1",
+    "supports-color": "^9.3.1",
     "tailwindcss": "3.3.2",
     "type-fest": "^3.11.0",
     "typescript": "5.0.4"
