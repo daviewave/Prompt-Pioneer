@@ -8,6 +8,9 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import CopyToClipboard from './CopyToClipboard';
 
+const feedCardStyle = 'prompt_card max-w-xl';
+const detailsCardStyle = 'prompt_card max-w-xl mt-10';
+
 type PromptCardProps = {
   post: any;
   handleTagClick: (tag: string) => void;
@@ -38,14 +41,21 @@ const PromptCard: FC<PromptCardProps> = ({
       console.error('Failed to copy text: ', error);
     }
   };
-  console.log('post: ', post);
 
   return (
-    <div className="prompt_card">
+    <div
+      className={`${
+        pathname === '/' ? feedCardStyle : detailsCardStyle
+      } lg:block hidden`}
+    >
       <div className="flex justify-between items-start gap-5">
-        <div 
+        <div
           className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
-          onClick={() => router.push(`/profile/?id=${post.creator._id}&name=${post.creator.username}`)}
+          onClick={() =>
+            router.push(
+              `/profile/?id=${post.creator._id}&name=${post.creator.username}`
+            )
+          }
         >
           <Image
             src={post?.creator?.image}
@@ -57,10 +67,10 @@ const PromptCard: FC<PromptCardProps> = ({
 
           <div className="flex flex-col">
             <h3 className="font-satoshi font-semibold text-gray-900">
-              {post.creator.username}
+              {post?.creator?.username}
             </h3>
             <p className="font-inter text-sm text -gray-500">
-              {post.creator.email}
+              {post?.creator?.email}
             </p>
           </div>
         </div>
@@ -71,14 +81,15 @@ const PromptCard: FC<PromptCardProps> = ({
       </div>
 
       <p className="my-4 font-satoshi text-sm text-gray-700">{post.prompt}</p>
+
       <p
-        className="font-inter text-sm blue_gradient cursor-pointer"
+        className="mb-5 font-inter text-sm blue_gradient cursor-pointer"
         onClick={() => handleTagClick && handleTagClick(post.tag)}
       >
         {post.tag}
       </p>
 
-      {session?.user?.id === post.creator._id && pathname === '/profile' && (
+      {session?.user?.id === post?.creator?._id && pathname === '/profile' && (
         <div className="mt-5 flex-center gap-4 border-t border-gray-100">
           <p
             className="font-inter text-sm px-4 py-2 w-20 text-center rounded-full border-2 border-green-500 text-green-500 hover:bg-green-500 hover:text-white cursor-pointer"
@@ -93,6 +104,15 @@ const PromptCard: FC<PromptCardProps> = ({
             Delete
           </p>
         </div>
+      )}
+
+      {pathname === '/' && (
+        <button
+          className="font-inter text-xs px-2 py-1 text-blue-500 bg-white border-2 border-blue-500 rounded-full hover:bg-blue-500 hover:text-white absolute bottom-2 right-2"
+          onClick={() => router.push(`/prompt-details/?id=${post._id}`)}
+        >
+          Try
+        </button>
       )}
     </div>
   );
