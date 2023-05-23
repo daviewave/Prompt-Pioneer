@@ -9,8 +9,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import CopyToClipboard from './CopyToClipboard';
 import path from 'path';
 
-const feedCardStyle = 'prompt_card max-w-xl';
-const detailsCardStyle = 'prompt_card max-w-xl mt-10';
+const feedCardStyle = 'prompt_card max-w-xl cursor-pointer';
+const detailsCardStyle = 'prompt_card max-w-xl mt-10 cursor-pointer';
 
 type PromptCardProps = {
   post: any;
@@ -45,15 +45,20 @@ const PromptCard: FC<PromptCardProps> = ({
 
   return (
     // <div className="prompt_card">
-    <div className={pathname === '/' ? feedCardStyle : detailsCardStyle}>
+    <div
+      className={pathname === '/' ? feedCardStyle : detailsCardStyle}
+      onClick={() => router.push(`/prompt-details/?id=${post._id}`)}
+    >
       <div className="flex justify-between items-start gap-5">
         <div
           className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
-          onClick={() =>
+          onClick={(e) => {
+            e.stopPropagation(); // This will prevent parentClickHandler from being called
+
             router.push(
               `/profile/?id=${post.creator._id}&name=${post.creator.username}`
-            )
-          }
+            );
+          }}
         >
           <Image
             src={post?.creator?.image}
@@ -82,7 +87,10 @@ const PromptCard: FC<PromptCardProps> = ({
 
       <p
         className="mb-5 font-inter text-sm blue_gradient cursor-pointer"
-        onClick={() => handleTagClick && handleTagClick(post.tag)}
+        onClick={(e) => {
+          e.stopPropagation(); // This will prevent parentClickHandler from being called
+          handleTagClick && handleTagClick(post.tag);
+        }}
       >
         {post.tag}
       </p>
