@@ -10,7 +10,7 @@ const Spinner = ({ message }) => {
       </div>
 
       {message && message !== '' && (
-        <p className="text-lg text-center px-2">{message}</p>
+        <p className="text-lg text-center px-2 mt-2">{message}</p>
       )}
     </>
   );
