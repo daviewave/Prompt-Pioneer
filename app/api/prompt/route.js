@@ -8,7 +8,7 @@ export const GET = async (req, res) => {
     await connectToDatabase();
 
     // get query params and set defaults
-    limit = limit ? Number(limit) : 8;
+    limit = limit ? Number(limit) : 9;
     page = page ? Number(page) : 1;
 
     // calculate how many to skip
