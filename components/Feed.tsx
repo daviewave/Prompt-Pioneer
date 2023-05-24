@@ -9,6 +9,15 @@ type PromptCardListProps = {
   handleTagClick: (tag: string) => void;
 };
 
+type Post = {
+  _id: string;
+  creator: {
+    username: string;
+  };
+  prompt: string;
+  tag: string;
+};
+
 const PromptCardList: FC<PromptCardListProps> = ({ data, handleTagClick }) => {
   return (
     <div className="mt-4 prompt_layout">
@@ -27,10 +36,10 @@ const PromptCardList: FC<PromptCardListProps> = ({ data, handleTagClick }) => {
 type FeedProps = {};
 
 const Feed: FC<FeedProps> = (props: FeedProps) => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [searchText, setSearchText] = useState('');
   const [searchTimeout, setSearchTimeout] = useState<any>(null);
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<any>([]);
   const [loading, setLoading] = useState(true); // starts as true
   const [firstLoad, setFirstLoad] = useState(true); // new state
   const [page, setPage] = useState(1);
