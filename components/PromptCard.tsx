@@ -10,7 +10,7 @@ import CopyToClipboard from './CopyToClipboard';
 import path from 'path';
 
 const cursorStyle = 'prompt_card max-w-xl cursor-pointer';
-const noCursorStyle = 'prompt_card max-w-xl';
+const noCursorStyle = 'prompt_details_card max-w-2xl';
 
 type PromptCardProps = {
   post: any;
