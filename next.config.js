@@ -21,11 +21,15 @@ const nextConfig = {
     };
     return config;
   },
-  target: 'serverless',
-  serverless: {
-    minify: {
-      timeout: 30000, // 10 seconds
+  api: {
+    externalResolver: true,
+    bodyParser: {
+      sizeLimit: '1mb',
     },
+    onError: (err, req, res) => {
+      // Handle error and send appropriate response
+    },
+    timeout: 10000, // 10 seconds
   },
 };
 
