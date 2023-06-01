@@ -8,7 +8,7 @@ const Home: FC<Props> = () => {
   return (
     <section className="w-full flex-center flex-col">
       <h1 className="head_text text-center">
-        <div>Discover, Try & Share</div>
+        <div>Discover & Try</div>
         <div>
           <span className="orange_gradient text-center">ChatGPT Prompts</span>
         </div>
