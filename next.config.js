@@ -31,6 +31,9 @@ const nextConfig = {
     },
     timeout: 30000, // 30 seconds
   },
+  serverless: {
+    functionTimeout: 30,
+  },
 };
 
 module.exports = nextConfig;
