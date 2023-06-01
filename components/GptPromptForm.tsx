@@ -112,7 +112,7 @@ const GptPromptForm: FC<FormProps> = (props: FormProps) => {
           <div className="mt-4 bg-white p-5 rounded shadow">
             <Spinner message="" />
           </div>
-        ) : error ? (
+        ) : error && error !== '' ? (
           <div className="mt-4 bg-white p-5 rounded shadow">
             An error occurred: {error}
           </div>
