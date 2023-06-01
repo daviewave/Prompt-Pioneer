@@ -21,6 +21,12 @@ const nextConfig = {
     };
     return config;
   },
+  target: 'serverless',
+  serverless: {
+    minify: {
+      timeout: 30000, // 10 seconds
+    },
+  },
 };
 
 module.exports = nextConfig;
