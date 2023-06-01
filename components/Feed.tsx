@@ -3,6 +3,7 @@
 import { FC, useState, useEffect, useRef, useCallback } from 'react';
 import PromptCard from './PromptCard';
 import Spinner from '@components/Spinner';
+import { set } from 'mongoose';
 
 type PromptCardListProps = {
   data: any[];
@@ -19,11 +20,13 @@ type Post = {
 };
 
 const PromptCardList: FC<PromptCardListProps> = ({ data, handleTagClick }) => {
+  console.log('PromptCardList data: ', data);
+
   return (
     <div className="mt-4 prompt_layout">
-      {data.map((post) => (
+      {data.map((post, i) => (
         <PromptCard
-          key={post._id}
+          key={i}
           post={post}
           handleTagClick={() => {}}
           handleEdit={() => {}}
@@ -44,6 +47,7 @@ const Feed: FC<FeedProps> = (props: FeedProps) => {
   const [firstLoad, setFirstLoad] = useState(true); // new state
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [totalCount, setTotalCount] = useState(0);
   const observer: any = useRef();
 
   const lastPostElementRef = useCallback(
@@ -74,12 +78,18 @@ const Feed: FC<FeedProps> = (props: FeedProps) => {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     clearTimeout(searchTimeout);
-    setSearchText(e.target.value);
+    const searchText = e.target.value.trim(); // Remove leading/trailing whitespace
+
+    setSearchText(searchText);
 
     setSearchTimeout(
       setTimeout(() => {
-        const searchResult = getFilteredPosts(e.target.value);
-        setSearchResults(searchResult);
+        if (searchText === '') {
+          setSearchResults([]); // Clear search results when search text is empty
+        } else {
+          const searchResult = getFilteredPosts(searchText);
+          setSearchResults(searchResult);
+        }
       }, 300)
     );
   };
@@ -118,7 +128,11 @@ const Feed: FC<FeedProps> = (props: FeedProps) => {
         }
 
         if (data.prompts && data.prompts.length > 0) {
-          setPosts((prevPosts: any) => [...prevPosts, ...data.prompts]);
+          const sortedData = data.prompts.sort((a, b) =>
+            a._id.localeCompare(b._id)
+          );
+          setPosts((prevPosts: any) => [...prevPosts, ...sortedData]);
+          setTotalCount(data.totalCount);
           if (firstLoad) setFirstLoad(false); // set firstLoad to false after first load finishes
         }
       } catch (error) {
@@ -172,23 +186,17 @@ const Feed: FC<FeedProps> = (props: FeedProps) => {
         </div>
       ) : searchResults && searchResults.length > 0 ? (
         <div className="flex-center flex-col" ref={ref}>
-          <PromptCardList
-            data={removeDuplicates(searchResults)}
-            handleTagClick={() => {}}
-          />
+          <PromptCardList data={searchResults} handleTagClick={() => {}} />
         </div>
       ) : (
         posts.length > 0 && (
           <div className="flex-center flex-col" ref={ref}>
-            <PromptCardList
-              data={removeDuplicates(posts)}
-              handleTagClick={() => {}}
-            />
+            <PromptCardList data={posts} handleTagClick={() => {}} />
           </div>
         )
       )}
 
-      {!loading && (
+      {!loading && posts.length < totalCount && searchText.length === 0 && (
         <button
           onClick={loadMore}
           className="flex-center ml-4 p-4 px-8 bg-gray-100 rounded-full focus:outline-none border-2 border-orange-500 max-h-12 my-4"
