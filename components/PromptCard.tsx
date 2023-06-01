@@ -8,6 +8,9 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import CopyToClipboard from './CopyToClipboard';
 
+const cursorStyle = 'prompt_card max-w-xl cursor-pointer';
+const noCursorStyle = 'prompt_card max-w-xl';
+
 type PromptCardProps = {
   post: any;
   handleTagClick: (tag: string) => void;
@@ -41,8 +44,14 @@ const PromptCard: FC<PromptCardProps> = ({
 
   return (
     <div
-      className="prompt_card max-w-xl cursor-pointer"
-      onClick={() => router.push(`/prompt-details/?id=${post._id}`)}
+      className={
+        !pathname.includes('/prompt-details') ? cursorStyle : noCursorStyle
+      }
+      onClick={() => {
+        if (!pathname.includes('/prompt-details')) {
+          return router.push(`/prompt-details/?id=${post._id}`);
+        }
+      }}
     >
       <div className="flex justify-between items-start gap-5">
         <div
