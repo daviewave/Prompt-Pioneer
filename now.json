@@ -8,11 +8,15 @@
   ],
   "routes": [
     {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "/"
     }
   ],
-  "functions": {
-    "maxDuration": 60
+  "api": {
+    "timeout": 60000
   }
 }
