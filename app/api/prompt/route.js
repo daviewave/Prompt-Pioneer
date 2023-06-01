@@ -1,15 +1,17 @@
+import { parse } from 'querystring';
+
 import { connectToDatabase } from '@utils/database';
 import Prompt from '@models/prompt';
 
 export const GET = async (req, res) => {
-  let { limit = 9, page = 1 } = req.body || {};
-
   try {
     await connectToDatabase();
 
+    const queryParams = parse(req.url.split('?')[1]);
+
     // get query params and set defaults
-    limit = limit ? Number(limit) : 9;
-    page = page ? Number(page) : 1;
+    let limit = queryParams.limit ? Number(queryParams.limit) : 9;
+    let page = queryParams.page ? Number(queryParams.page) : 1;
 
     // calculate how many to skip
     const skip = (page - 1) * limit;

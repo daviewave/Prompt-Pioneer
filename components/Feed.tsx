@@ -100,13 +100,20 @@ const Feed: FC<FeedProps> = (props: FeedProps) => {
     const fetchPosts = async () => {
       if (firstLoad) setLoading(true);
       try {
-        const response = await fetch(`/api/prompt?page=${page}`);
+        console.log('page: ', page);
+        const response = await fetch(`/api/prompt/?limit=9&page=${page}`);
         const data = await response.json();
+
+        console.log('data: ', data);
 
         if (data.prompts && data.prompts.length === 0) fetchPosts(); // if no posts, fetch again
 
         // need to change 135 to the total number in the database
-        if (!data.prompts || data.prompts.length < 135) {
+        if (data.prompts && data.prompts.length > data.totalCount - 9) {
+          setHasMore(false);
+        }
+
+        if (data.prompts && data.prompts.length < 9) {
           setHasMore(false);
         }
 
@@ -128,18 +135,27 @@ const Feed: FC<FeedProps> = (props: FeedProps) => {
   const loadMore = () => {
     // capture current scroll position
     const currentScrollPosition = window.pageYOffset;
-
     setPage((prevPageNumber) => prevPageNumber + 1);
-
-    // reset the scroll position after the state updates and re-render
     window.setTimeout(() => {
       window.scrollTo(0, currentScrollPosition);
     }, 0);
   };
 
+  const removeDuplicates = (arr) => {
+    return arr.filter((obj, index) => {
+      const _obj = JSON.stringify(obj);
+      return (
+        index ===
+        arr.findIndex((obj) => {
+          return JSON.stringify(obj) === _obj;
+        })
+      );
+    });
+  };
+
   return (
     <section className="feed relative">
-      <form className="relative w-full flex-center">
+      <form className="relative w-full flex-center sticky top-0 z-10 ">
         <input
           type="text"
           placeholder="Search Prompts by Keyword, Tag, or Username"
@@ -154,19 +170,31 @@ const Feed: FC<FeedProps> = (props: FeedProps) => {
         <div className="mt-5">
           <Spinner message="Loading feed..." />
         </div>
-      ) : posts.length > 0 ? (
+      ) : searchResults && searchResults.length > 0 ? (
         <div className="flex-center flex-col" ref={ref}>
-          <PromptCardList data={posts} handleTagClick={handleTagClick} />
-
-          <button
-            onClick={loadMore}
-            className="flex-center ml-4 p-4 bg-gray-100 rounded-full focus:outline-none border-2 border-orange-500 max-h-14"
-          >
-            Load More
-          </button>
+          <PromptCardList
+            data={removeDuplicates(searchResults)}
+            handleTagClick={handleTagClick}
+          />
         </div>
       ) : (
-        <p>No search results found for "{searchText}"</p>
+        posts.length > 0 && (
+          <div className="flex-center flex-col" ref={ref}>
+            <PromptCardList
+              data={removeDuplicates(posts)}
+              handleTagClick={handleTagClick}
+            />
+          </div>
+        )
+      )}
+
+      {!loading && (
+        <button
+          onClick={loadMore}
+          className="flex-center ml-4 p-4 px-8 bg-gray-100 rounded-full focus:outline-none border-2 border-orange-500 max-h-12 my-4"
+        >
+          Load More
+        </button>
       )}
     </section>
   );
