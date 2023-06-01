@@ -13,6 +13,6 @@
     }
   ],
   "functions": {
-    "timeout": 60
+    "maxDuration": 60
   }
 }
