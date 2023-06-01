@@ -70,13 +70,13 @@ const GptPromptForm: FC<FormProps> = (props: FormProps) => {
 
       {/* Only display this on medium and small devices */}
       <div className="lg:hidden flex flex-col justify-evenly items-center w-full gap-7 mt-6">
-        <PromptCard
+        {/* <PromptCard
           key={post._id}
           post={post}
           handleTagClick={() => {}}
           handleEdit={() => {}}
           handleDelete={() => {}}
-        />
+        /> */}
 
         <form
           onSubmit={handleSubmit}
