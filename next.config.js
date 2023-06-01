@@ -21,9 +21,6 @@ const nextConfig = {
     };
     return config;
   },
-  api: {
-    timeout: 60000, // 60 seconds
-  },
 };
 
 module.exports = nextConfig;

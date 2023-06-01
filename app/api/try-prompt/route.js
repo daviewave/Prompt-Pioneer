@@ -13,7 +13,9 @@ export const POST = async (req, res) => {
   try {
     const chat = new ChatOpenAI({ temperature: 0, timeout: 30000 });
 
-    const response = await chat.call([new HumanChatMessage(prompt)]);
+    const fullPrompt = `In no more than 5 sentences / 5 bullet points respond to the following prompt: ${prompt}`;
+
+    const response = await chat.call([new HumanChatMessage(fullPrompt)]);
 
     return new Response(JSON.stringify(response.text), {
       status: 200,
