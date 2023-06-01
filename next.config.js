@@ -22,17 +22,7 @@ const nextConfig = {
     return config;
   },
   api: {
-    externalResolver: true,
-    bodyParser: {
-      sizeLimit: '1mb',
-    },
-    onError: (err, req, res) => {
-      // Handle error and send appropriate response
-    },
-    timeout: 30000, // 30 seconds
-  },
-  serverless: {
-    functionTimeout: 30,
+    timeout: 60000, // 60 seconds
   },
 };
 
