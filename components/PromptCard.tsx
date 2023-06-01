@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import CopyToClipboard from './CopyToClipboard';
+import path from 'path';
 
 const cursorStyle = 'prompt_card max-w-xl cursor-pointer';
 const noCursorStyle = 'prompt_card max-w-xl';
@@ -57,11 +58,12 @@ const PromptCard: FC<PromptCardProps> = ({
         <div
           className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
           onClick={(e) => {
-            e.stopPropagation(); // This will prevent parentClickHandler from being called
-
-            router.push(
-              `/profile/?id=${post.creator._id}&name=${post.creator.username}`
-            );
+            if (pathname.includes('/prompt-details')) {
+              e.stopPropagation(); // This will prevent parentClickHandler from being called
+              router.push(
+                `/profile/?id=${post.creator._id}&name=${post.creator.username}`
+              );
+            }
           }}
         >
           <Image
@@ -90,7 +92,7 @@ const PromptCard: FC<PromptCardProps> = ({
       <p className="my-4 font-satoshi text-sm text-gray-700">{post.prompt}</p>
 
       <p
-        className="mb-5 font-inter text-sm blue_gradient cursor-pointer"
+        className="mb-5 font-inter text-sm blue_gradient"
         onClick={(e) => {
           e.stopPropagation(); // This will prevent parentClickHandler from being called
           handleTagClick && handleTagClick(post.tag);
@@ -116,14 +118,14 @@ const PromptCard: FC<PromptCardProps> = ({
         </div>
       )}
 
-      {pathname === '/' && (
+      {/* {pathname === '/' && (
         <button
           className="font-inter text-xs px-2 py-1 text-blue-500 bg-white border-2 border-blue-500 rounded-full hover:bg-blue-500 hover:text-white absolute bottom-2 right-2"
           onClick={() => router.push(`/prompt-details/?id=${post._id}`)}
         >
           Try
         </button>
-      )}
+      )} */}
     </div>
   );
 };

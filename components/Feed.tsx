@@ -25,7 +25,7 @@ const PromptCardList: FC<PromptCardListProps> = ({ data, handleTagClick }) => {
         <PromptCard
           key={post._id}
           post={post}
-          handleTagClick={handleTagClick}
+          handleTagClick={() => {}}
           handleEdit={() => {}}
           handleDelete={() => {}}
         />
@@ -174,7 +174,7 @@ const Feed: FC<FeedProps> = (props: FeedProps) => {
         <div className="flex-center flex-col" ref={ref}>
           <PromptCardList
             data={removeDuplicates(searchResults)}
-            handleTagClick={handleTagClick}
+            handleTagClick={() => {}}
           />
         </div>
       ) : (
@@ -182,7 +182,7 @@ const Feed: FC<FeedProps> = (props: FeedProps) => {
           <div className="flex-center flex-col" ref={ref}>
             <PromptCardList
               data={removeDuplicates(posts)}
-              handleTagClick={handleTagClick}
+              handleTagClick={() => {}}
             />
           </div>
         )
