@@ -29,7 +29,7 @@ const nextConfig = {
     onError: (err, req, res) => {
       // Handle error and send appropriate response
     },
-    timeout: 10000, // 10 seconds
+    timeout: 30000, // 30 seconds
   },
 };
 
