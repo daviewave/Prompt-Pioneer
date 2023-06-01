@@ -16,7 +16,6 @@ const PromptDetails = (props: Props) => {
 
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [gptResponse, setGptResponse] = useState('');
-  const [error, setError] = useState('');
   const [post, setPost] = useState({
     prompt: '',
     promptEdit: '',
@@ -67,9 +66,8 @@ const PromptDetails = (props: Props) => {
       console.log('data: ', data);
 
       setGptResponse(data);
-    } catch (error: any) {
+    } catch (error) {
       console.log(error);
-      setError(error);
     } finally {
       setSubmitting(false);
     }
@@ -85,7 +83,6 @@ const PromptDetails = (props: Props) => {
         submitting={submitting}
         handleSubmit={getGptResponse}
         gptResponse={gptResponse}
-        error={error}
       />
     </div>
   );

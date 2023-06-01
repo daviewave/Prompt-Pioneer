@@ -8,18 +8,16 @@ type Post = {
   prompt: string;
   tag: string;
 };
-
 type FormProps = {
   post: any;
-  setPost: any;
+  setPost: any; // not sure what this is supposed to be
   submitting: boolean;
-  handleSubmit: any;
+  handleSubmit: any; // need to change this to a function call
   gptResponse: string;
-  error: string | null;
 };
 
 const GptPromptForm: FC<FormProps> = (props: FormProps) => {
-  const { post, setPost, submitting, handleSubmit, gptResponse, error } = props;
+  const { post, setPost, submitting, handleSubmit, gptResponse } = props;
 
   return (
     <section className="w-full max-w-full flex-start flex-col">
@@ -70,13 +68,13 @@ const GptPromptForm: FC<FormProps> = (props: FormProps) => {
 
       {/* Only display this on medium and small devices */}
       <div className="lg:hidden flex flex-col justify-evenly items-center w-full gap-7 mt-6">
-        {/* <PromptCard
+        <PromptCard
           key={post._id}
           post={post}
           handleTagClick={() => {}}
           handleEdit={() => {}}
           handleDelete={() => {}}
-        /> */}
+        />
 
         <form
           onSubmit={handleSubmit}
@@ -111,10 +109,6 @@ const GptPromptForm: FC<FormProps> = (props: FormProps) => {
         {submitting ? (
           <div className="mt-4 bg-white p-5 rounded shadow">
             <Spinner message="" />
-          </div>
-        ) : error && error !== '' ? (
-          <div className="mt-4 bg-white p-5 rounded shadow">
-            An error occurred: {error}
           </div>
         ) : (
           <div className="mt-4 bg-white p-5 rounded shadow">
