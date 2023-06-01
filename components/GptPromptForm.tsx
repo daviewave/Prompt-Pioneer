@@ -29,9 +29,8 @@ const GptPromptForm: FC<FormProps> = (props: FormProps) => {
         requirements for a personalized engagement.
       </p>
 
-      {/* TODO: add PromptCard here that is only displayed on small or medium devices */}
-
-      <div className="flex flex-col lg:flex-row justify-evenly items-center w-full gap-7 mt-6">
+      {/* Only display this on large devices */}
+      <div className="hidden lg:flex flex-row justify-evenly items-center w-full gap-7 mt-6">
         <form
           onSubmit={handleSubmit}
           className="w-full max-w-2xl flex flex-col sm:flex-row gap-7 items-center justify-between glassmorphism"
@@ -67,8 +66,43 @@ const GptPromptForm: FC<FormProps> = (props: FormProps) => {
         />
       </div>
 
-      {/* TODO: need to add a response box for the chatGPT response */}
-      {/* Response box for the chatGPT response */}
+      {/* Only display this on medium and small devices */}
+      <div className="lg:hidden flex flex-col justify-evenly items-center w-full gap-7 mt-6">
+        <PromptCard
+          key={post._id}
+          post={post}
+          handleTagClick={() => {}}
+          handleEdit={() => {}}
+          handleDelete={() => {}}
+        />
+
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-2xl flex flex-col sm:flex-row gap-7 items-center justify-between glassmorphism"
+        >
+          <textarea
+            value={post.promptEdit}
+            onChange={(e) => setPost({ ...post, promptEdit: e.target.value })}
+            placeholder="Write your prompt here..."
+            required
+            className="form_prompt w-auto sm:w-full"
+          />
+
+          {submitting ? (
+            <Spinner message="" />
+          ) : (
+            <button
+              type="submit"
+              disabled={submitting}
+              className="px-5 py-2 text-sm bg-primary-orange rounded-full text-white w-full sm:w-auto"
+              aria-disabled={submitting}
+            >
+              {submitting ? 'Generating response...' : 'Generate'}
+            </button>
+          )}
+        </form>
+      </div>
+
       <div className="mt-10 w-full glassmorphism p-5">
         <h2 className="text-xl">ChatGPT Response:</h2>
 
