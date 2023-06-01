@@ -8,16 +8,18 @@ type Post = {
   prompt: string;
   tag: string;
 };
+
 type FormProps = {
   post: any;
-  setPost: any; // not sure what this is supposed to be
+  setPost: any;
   submitting: boolean;
-  handleSubmit: any; // need to change this to a function call
+  handleSubmit: any;
   gptResponse: string;
+  error: string | null;
 };
 
 const GptPromptForm: FC<FormProps> = (props: FormProps) => {
-  const { post, setPost, submitting, handleSubmit, gptResponse } = props;
+  const { post, setPost, submitting, handleSubmit, gptResponse, error } = props;
 
   return (
     <section className="w-full max-w-full flex-start flex-col">
@@ -109,6 +111,10 @@ const GptPromptForm: FC<FormProps> = (props: FormProps) => {
         {submitting ? (
           <div className="mt-4 bg-white p-5 rounded shadow">
             <Spinner message="" />
+          </div>
+        ) : error ? (
+          <div className="mt-4 bg-white p-5 rounded shadow">
+            An error occurred: {error}
           </div>
         ) : (
           <div className="mt-4 bg-white p-5 rounded shadow">
