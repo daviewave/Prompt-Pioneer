@@ -31,10 +31,10 @@ const GptPromptForm: FC<FormProps> = (props: FormProps) => {
 
       {/* TODO: add PromptCard here that is only displayed on small or medium devices */}
 
-      <div className="flex flex-col lg:flex-row justify-evenly items-between w-full gap-7">
+      <div className="flex flex-col lg:flex-row justify-evenly items-center w-full gap-7 mt-6">
         <form
           onSubmit={handleSubmit}
-          className="mt-10 w-full max-w-2xl flex flex-col sm:flex-row gap-7 items-center justify-between glassmorphism"
+          className="w-full max-w-2xl flex flex-col sm:flex-row gap-7 items-center justify-between glassmorphism"
         >
           <textarea
             value={post.promptEdit}
@@ -58,7 +58,6 @@ const GptPromptForm: FC<FormProps> = (props: FormProps) => {
           )}
         </form>
 
-        {/* <div className="w-full lg:max-w-md hidden lg:block"> */}
         <PromptCard
           key={post._id}
           post={post}
@@ -66,16 +65,22 @@ const GptPromptForm: FC<FormProps> = (props: FormProps) => {
           handleEdit={() => {}}
           handleDelete={() => {}}
         />
-        {/* </div> */}
       </div>
 
       {/* TODO: need to add a response box for the chatGPT response */}
       {/* Response box for the chatGPT response */}
       <div className="mt-10 w-full glassmorphism p-5">
         <h2 className="text-xl">ChatGPT Response:</h2>
-        <div className="mt-4 bg-white p-5 rounded shadow">
-          {gptResponse || 'No response yet...'}
-        </div>
+
+        {submitting ? (
+          <div className="mt-4 bg-white p-5 rounded shadow">
+            <Spinner message="" />
+          </div>
+        ) : (
+          <div className="mt-4 bg-white p-5 rounded shadow">
+            {gptResponse || 'No response yet...'}
+          </div>
+        )}
       </div>
     </section>
   );
