@@ -171,7 +171,7 @@ This pattern is followed for all the components.
 
 /* PromptCard Component */
 .prompt_card {
-  @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/70 bg-clip-padding p-6 backdrop-blur-lg md:w-[360px] md:h-[200px] backdrop-filter w-full h-fit;
+  @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/70 bg-clip-padding p-6 backdrop-blur-lg md:w-[360px] md:h-[auto] backdrop-filter w-full h-fit;
 }
 
 .prompt_details_card {
