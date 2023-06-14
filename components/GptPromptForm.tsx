@@ -30,17 +30,26 @@ const GptPromptForm: FC<FormProps> = (props: FormProps) => {
       </p>
 
       {/* Only display this on large devices */}
-      <div className="hidden lg:flex flex-row justify-evenly items-center w-full gap-7 mt-6">
+      <div
+        className="hidden lg:flex flex-row justify-evenly items-center w-full gap-7 mt-6"
+        // style={{ height: '50vh' }}
+      >
         <form
           onSubmit={handleSubmit}
           className="w-full max-w-2xl flex flex-col sm:flex-row gap-7 items-center justify-between glassmorphism"
         >
+          {/* 
+            THIS IS THE '.form_prompt css class
+            .form_prompt {
+              @apply w-full rounded-lg mt-2 p-3 text-sm text-gray-500 outline-0;
+            }          
+          */}
           <textarea
             value={post.promptEdit}
             onChange={(e) => setPost({ ...post, promptEdit: e.target.value })}
             placeholder="Write your prompt here..."
             required
-            className="form_prompt w-auto sm:w-full"
+            className="form_prompt w-full sm:w-full h-full sm:h-300"
           />
 
           {submitting ? (
@@ -67,7 +76,10 @@ const GptPromptForm: FC<FormProps> = (props: FormProps) => {
       </div>
 
       {/* Only display this on medium and small devices */}
-      <div className="lg:hidden flex flex-col justify-evenly items-center w-full gap-7 mt-6">
+      <div
+        className="lg:hidden flex flex-col justify-evenly items-center w-full gap-7 mt-6"
+        style={{ height: '50vh' }}
+      >
         <PromptCard
           key={post._id}
           post={post}
@@ -80,6 +92,7 @@ const GptPromptForm: FC<FormProps> = (props: FormProps) => {
           onSubmit={handleSubmit}
           className="w-full max-w-2xl flex flex-col sm:flex-row gap-7 items-center justify-between glassmorphism"
         >
+          {/* <div style={{ display: 'flex', height: 'auto' }}> */}
           <textarea
             value={post.promptEdit}
             onChange={(e) => setPost({ ...post, promptEdit: e.target.value })}
@@ -100,6 +113,7 @@ const GptPromptForm: FC<FormProps> = (props: FormProps) => {
               {submitting ? 'Generating response...' : 'Generate'}
             </button>
           )}
+          {/* </div> */}
         </form>
       </div>
 

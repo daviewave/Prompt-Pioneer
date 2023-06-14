@@ -138,13 +138,13 @@ This pattern is followed for all the components.
 .form_textarea {
   @apply w-full flex rounded-lg h-[200px] mt-2 p-3 text-sm text-gray-500 outline-0;
 }
+/* 
+.form_prompt {
+  @apply w-auto rounded-lg mt-2 p-3 text-sm text-gray-500 outline-0;
+} */
 
 .form_prompt {
-  @apply w-auto h-40 rounded-lg mt-2 p-3 text-sm text-gray-500 outline-0;
-}
-
-.form_prompt {
-  @apply w-full h-40 rounded-lg mt-2 p-3 text-sm text-gray-500 outline-0;
+  @apply w-full h-80 rounded-lg mt-2 p-3 text-sm text-gray-500 outline-0;
 }
 
 /* Form Component */
@@ -175,7 +175,7 @@ This pattern is followed for all the components.
 }
 
 .prompt_details_card {
-  @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/70 bg-clip-padding p-6 backdrop-blur-lg md:h-[200px] backdrop-filter w-full h-fit;
+  @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/70 bg-clip-padding p-6 backdrop-blur-lg md:h-[auto] backdrop-filter w-full h-fit;
 }
 
 .flex-center {
